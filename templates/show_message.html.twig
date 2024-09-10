@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>show_message</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* height: 100vh; */
+            margin: 16% 0;
+        }
+        .chat-container {
+            /* width: 300px; */
+            width: 80%;
+            /* border: 2px solid #ffff00; */
+            border-radius: 10px;
+            padding: 20px;
+            /* background-color: #2d2d2d; */
+        }
+        .message {
+            margin-bottom: 14px;
+            /* max-width: 80%; */
+            /* border: solid gray 1px; */
+            border-radius: 12px;
+        }
+        .left {
+            align-self: flex-start;
+        }
+        .right {
+            align-self: flex-end;
+            text-align: right;
+        }
+        .chat_box {
+            border-radius: 16px;
+            padding: 8px 12px;
+            display: inline-block;
+        }
+        .left .chat_box {
+            border: solid rgb(192, 192, 192) 1px;
+        }
+        .right .chat_box {
+            background-color:honeydew;
+            border: solid rgb(192, 192, 192) 1px;
+
+        }
+        .input-container {
+            display: flex;
+            margin-top: 80px;
+        }
+        input[type="text"] {
+            flex-grow: 1;
+            padding: 8px;
+            border-radius: 5px 0 0 5px;
+        }
+        button {
+            padding: 8px 12px;
+            /* border: none; */
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="message left">
+            <div class="chat_box">タイプミスは？</div>
+        </div>
+        <div class="message right">
+            <div class="chat_box">ないです</div>
+        </div>
+        <div class="message left">
+            <div class="chat_box">いらない記述消した？</div>
+        </div>
+        <div class="input-container">
+            <input type="text" placeholder="入力...">
+            <button>→</button>
+        </div>
+    </div>
+</body>
+</html>
