@@ -22,7 +22,7 @@ class ShowTriggerAction extends Action{
 	 * {@inheritdoc}
 	 */
 	protected function action(): Response {
-		$template  = '../../show_trigger.html.twig';
+		$template  = '../../../../templates/show_trigger.html.twig';
 		$title     = 'ShowTrigger';
 
 		return $this->twig->render($this->response, $template, 
