@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use App\Application\Actions\Test\ShowMessageAction;
-use App\Application\Actions\Test\ShowSituationAction;
-use App\Application\Actions\Test\ShowTriggerAction;
+use App\Application\Actions\ShowAction\ShowMessageAction;
+use App\Application\Actions\ShowAction\ShowSituationAction;
+use App\Application\Actions\ShowAction\ShowTriggerAction;
 use App\Application\Actions\User\ListUsersAction;
 use App\Application\Actions\User\ViewUserAction;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -19,7 +19,7 @@ return function (App $app) {
     });
 
     $app->get('/', function (Request $request, Response $response) {
-        $response->getBody()->write('Hello worldおお!');
+        $response->getBody()->write('Hello worldおお＠＠＠!');
         return $response;
     });
     $app->get('/show_trigger', ShowTriggerAction::class);

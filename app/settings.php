@@ -34,9 +34,9 @@ return function (ContainerBuilder $containerBuilder) {
                'db' => [
                     'driver' => 'mysql',
                     'host' => 'localhost',
-                    'database' => 'database',
-                    'username' => 'user',
-                    'password' => 'password',
+                    'database' => 'boss_rep_db',
+                    'username' => 'michizoeakito',
+                    'password' => 'asahizoe15',
                     'charset'   => 'utf8',
                     'collation' => 'utf8_unicode_ci',
                     'prefix'    => '',
