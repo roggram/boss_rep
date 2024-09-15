@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class Message extends Model {
-    protected $table = 'message';
+    protected $table = 'messages';
     protected $dates = ['created_at', 'updated_at'];
 
     public function getAttribute($key) {

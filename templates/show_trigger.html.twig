@@ -47,14 +47,16 @@
 </head>
 <body>
   <div class="one_trigger_container">
-    <form action="#" method="get" class="trigger_show_form">
-      <button type="submit" class="trigger_show_button">田中先輩</button>
-    </form>
-    <form action="#" method="get" class="trigger_edit_form">
-      <button type="submit" class="trigger_edit_button">:</button>
-    </form>
+    {% for trigger in triggers %}
+      <form action="#" method="get" class="trigger_show_form">
+        <button type="submit" class="trigger_show_button">{{ trigger }}</button>
+      </form>
+      <form action="#" method="get" class="trigger_edit_form">
+        <button type="submit" class="trigger_edit_button">:</button>
+      </form>
+    {% endfor %}
   </div>
-  <div class="one_trigger_container">
+  {# <div class="one_trigger_container">
     <form action="#" method="get" class="trigger_show_form">
       <button type="submit" class="trigger_show_button">山本先輩</button>
     </form>
@@ -64,12 +66,12 @@
   </div>
   <div class="one_trigger_container">
     <form action="#" method="get" class="trigger_show_form">
-      <button type="submit" class="trigger_show_button">青い先輩</button>
+      <button type="submit" class="trigger_show_button"></button>
     </form>
     <form action="#" method="get" class="trigger_edit_form">
       <button type="submit" class="trigger_edit_button">:</button>
     </form>
-  </div>
+  </div> #}
   <form action="#" method="post" class="new_trigger_container">
     <button type="submit">新規人物追加っすね</button>
   </form>

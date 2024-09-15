@@ -25,7 +25,8 @@ return function (ContainerBuilder $containerBuilder) {
                 'twig' => [
                     'reloadCache'      => time()
                    ,'strict_variables' => true
-                   ,'cache'            => __DIR__ . '/../var/cache/twig'
+                //    ,'cache'            => __DIR__ . '/../var/cache/twig'
+                   ,'cache'            => false
                ]
                // CSS,JS,画像置き場
                ,'assets' =>[
