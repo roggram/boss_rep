@@ -1,2 +1,24 @@
 [2024-08-29T08:48:07.100835+00:00] slim-app.INFO: Users list was viewed. [] {"uid":"eeb347e"}
 [2024-08-29T08:48:07.102665+00:00] slim-app.INFO: User of id `1` was viewed. [] {"uid":"13de3e9"}
+[2024-09-16T00:09:35.374792+00:00] slim-app.DEBUG: Twig instance: {"twig":"Slim\\Views\\Twig"} {"uid":"83dff74"}
+[2024-09-16T00:09:35.376932+00:00] slim-app.DEBUG: Template path: {"path":"show_trigger.html.twig"} {"uid":"83dff74"}
+[2024-09-16T00:10:04.156143+00:00] slim-app.DEBUG: Twig instance: {"twig":"Slim\\Views\\Twig"} {"uid":"49150f2"}
+[2024-09-16T00:10:04.156382+00:00] slim-app.DEBUG: Template path: {"path":"show_trigger.html.twig"} {"uid":"49150f2"}
+[2024-09-16T00:15:56.890177+00:00] slim-app.DEBUG: Twig instance: {"twig":"Slim\\Views\\Twig"} {"uid":"a8b0995"}
+[2024-09-16T00:15:56.890703+00:00] slim-app.DEBUG: Template path: {"path":"show_trigger.html.twig"} {"uid":"a8b0995"}
+[2024-09-16T00:15:57.510661+00:00] slim-app.DEBUG: Twig instance: {"twig":"Slim\\Views\\Twig"} {"uid":"00a5d28"}
+[2024-09-16T00:15:57.510913+00:00] slim-app.DEBUG: Template path: {"path":"show_trigger.html.twig"} {"uid":"00a5d28"}
+[2024-09-16T00:18:33.567814+00:00] slim-app.DEBUG: Twig instance: {"twig":"Slim\\Views\\Twig"} {"uid":"0256d78"}
+[2024-09-16T00:18:33.569026+00:00] slim-app.DEBUG: Template path: {"path":"show_trigger.html.twig"} {"uid":"0256d78"}
+[2024-09-16T00:18:34.142719+00:00] slim-app.DEBUG: Twig instance: {"twig":"Slim\\Views\\Twig"} {"uid":"94b3ac7"}
+[2024-09-16T00:18:34.142898+00:00] slim-app.DEBUG: Template path: {"path":"show_trigger.html.twig"} {"uid":"94b3ac7"}
+[2024-09-16T00:19:08.758790+00:00] slim-app.DEBUG: Twig instance: {"twig":"Slim\\Views\\Twig"} {"uid":"e3f4864"}
+[2024-09-16T00:19:08.759051+00:00] slim-app.DEBUG: Template path: {"path":"show_trigger.html.twig"} {"uid":"e3f4864"}
+[2024-09-16T00:19:09.342677+00:00] slim-app.DEBUG: Twig instance: {"twig":"Slim\\Views\\Twig"} {"uid":"9d4b041"}
+[2024-09-16T00:19:09.342858+00:00] slim-app.DEBUG: Template path: {"path":"show_trigger.html.twig"} {"uid":"9d4b041"}
+[2024-09-16T00:20:10.754097+00:00] slim-app.DEBUG: Twig instance: {"twig":"Slim\\Views\\Twig"} {"uid":"d1638de"}
+[2024-09-16T00:20:10.754208+00:00] slim-app.DEBUG: Template path: {"path":"show_trigger.html.twig"} {"uid":"d1638de"}
+[2024-09-16T00:20:11.312319+00:00] slim-app.DEBUG: Twig instance: {"twig":"Slim\\Views\\Twig"} {"uid":"634c60c"}
+[2024-09-16T00:20:11.312508+00:00] slim-app.DEBUG: Template path: {"path":"show_trigger.html.twig"} {"uid":"634c60c"}
+[2024-09-16T00:20:11.565537+00:00] slim-app.DEBUG: Twig instance: {"twig":"Slim\\Views\\Twig"} {"uid":"3320572"}
+[2024-09-16T00:20:11.565819+00:00] slim-app.DEBUG: Template path: {"path":"show_trigger.html.twig"} {"uid":"3320572"}

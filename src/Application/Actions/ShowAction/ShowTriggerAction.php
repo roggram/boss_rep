@@ -23,11 +23,13 @@ class ShowTriggerAction extends Action{
 	 * {@inheritdoc}
 	 */
 	protected function action(): Response {
-		$template  = './show_trigger.html.twig';
+		$template  = 'show_trigger.html.twig';
+		$this->logger->debug('Twig instance:', ['twig' => get_class($this->twig)]);
+		$this->logger->debug('Template path:', ['path' => $template]);
 		// $template  = 'templates/show_trigger.html.twig';
 		// $title     = 'ShowTrigger';
 
-		$triggers = Trigger::get();
+		$triggers = Trigger::all();
 		// if (count($triggers) === 0){
 			
 		// }

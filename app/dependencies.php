@@ -39,20 +39,7 @@ return function (ContainerBuilder $containerBuilder) {
             $renderTwig->offsetSet('assetsUrl', $settings->get('assets')['path']);
             return $renderTwig;
         },
-        // Service factory for the ORM
-        // https://www.slimframework.com/docs/v3/cookbook/database-eloquent.html
-        // 上のURL見て以下の{}記述
-        // claudによると以下のでデータベースの内容をPHPのオブジェクトとして扱えるようになり、Eloquentを起動してるらしい
-        // $container['db'] = function ($container) {
-        //     // capsuleでカプセルと読みます データベースに必要な設定をまとめる=capsule という意味があるらしい
-        //     $capsule = new \Illuminate\Database\Capsule\Manager;
-        //     $capsule->addConnection($container['settings']['db']);
 
-        //     $capsule->setAsGlobal(); // 設定したDB接続をグローバルに設定し、どこからでもDBにアクセスできるようにする一行
-        //     $capsule->bootEloquent(); // bootで起動するという意味
-
-        //     return $capsule;
-        // },
         Capsule::class => function (ContainerInterface $c) {
             $settings = $c->get(SettingsInterface::class);
             $eloquent = new Capsule;

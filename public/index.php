@@ -9,6 +9,8 @@ use App\Application\Settings\SettingsInterface;
 use DI\ContainerBuilder;
 use Slim\Factory\AppFactory;
 use Slim\Factory\ServerRequestCreatorFactory;
+use Illuminate\Database\Capsule\Manager as Capsule;
+
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -76,6 +78,8 @@ $app->addBodyParsingMiddleware();
 // Add Error Middleware
 $errorMiddleware = $app->addErrorMiddleware($displayErrorDetails, $logError, $logErrorDetails);
 $errorMiddleware->setDefaultErrorHandler($errorHandler);
+
+$app->getContainer()->get('Illuminate\Database\Capsule\Manager');
 
 // Run App & Emit Response
 $response = $app->handle($request);
