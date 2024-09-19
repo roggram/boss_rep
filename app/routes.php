@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Application\Actions\AddAction\AddSituationAction;
 use App\Application\Actions\AddAction\AddTriggerAction;
 use App\Application\Actions\EditAction\EditSituationAction;
 use App\Application\Actions\ShowAction\ShowMessageAction;
@@ -26,6 +27,7 @@ return function (App $app) {
     });
     $app->get('/show_trigger', ShowTriggerAction::class);
     $app->get('/add_trigger', AddTriggerAction::class);
+    $app->get('/add_situation', AddSituationAction::class);
     $app->get('/show_situation', ShowSituationAction::class);
     $app->get('/edit_situation', EditSituationAction::class);
     $app->get('/show_message', ShowMessageAction::class);
