@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>add_trigger</title>
+  <style>
+    h1 {
+      font-size: 24px;
+    }
+
+    .one_trigger_container {
+      display: flex;
+      /* border: solid 1px gray; */
+      /*border-radius: 8px; */
+      padding: 8px;
+      margin: 32px;
+      justify-content: center;
+      /* align-items: center; */
+    }
+    .one_trigger_container > .trigger_name {
+      flex-grow: 1;
+    }
+    .one_trigger_container > .trigger_edit_form {
+      margin-left: 8px;
+    }
+
+    .trigger_edit_button {
+      /* background: none; */
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    .new_trigger_container {
+      margin-left: auto;
+      margin-right: auto;
+      width: 96px;
+    }
+    .trigger_show_form {
+      width: 100%;
+    }
+    .trigger_show_button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      width: 100%;
+      padding: 0;
+      font: inherit;
+    }
+  </style>
+</head>
+<body>
+  <h1>新規人物追加</h1>
+  <div class="one_trigger_container">
+        <form method="get" action="http://localhost:8080/" class="trigger_edit_form">
+          <label for=""></label>
+          <input type="text" name="add_trigger_id" value="" placeholder="例:xx先輩">
+        <button type="submit" class="trigger_edit_button">+</button>
+      </form>
+      <br>
+  </div>
+</body>
+</html>

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Application\Actions\ShowAction;
+namespace App\Application\Actions\AddAction;
 
 use App\Application\Actions\Action;
 use Slim\Views\Twig;
@@ -11,7 +11,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use App\Application\Settings\SettingsInterface;
 use App\Models\Trigger;
 
-class ShowTriggerAction extends Action{
+class AddTriggerAction extends Action{
 	private $twig;
 
 	public function __construct(LoggerInterface $logger, Twig $twig, SettingsInterface $settings) {
@@ -23,16 +23,9 @@ class ShowTriggerAction extends Action{
 	 * {@inheritdoc}
 	 */
 	protected function action(): Response {
-		$template  = 'show_trigger.html.twig';
-		// $this->logger->debug('Twig instance:', ['twig' => get_class($this->twig)]);
-		// $this->logger->debug('Template path:', ['path' => $template]);
-		// $template  = 'templates/show_trigger.html.twig';
-		// $title     = 'ShowTrigger';
+		$template  = 'add_trigger.html.twig';
 
 		$triggers = Trigger::all();
-		// if (count($triggers) === 0){
-			
-		// }
 
 		return $this->twig->render($this->response, $template, 
 			['triggers' => $triggers]);

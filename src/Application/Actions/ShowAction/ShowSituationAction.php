@@ -7,8 +7,11 @@ namespace App\Application\Actions\ShowAction;
 use App\Application\Actions\Action;
 use Slim\Views\Twig;
 use Psr\Log\LoggerInterface;
+use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use App\Application\Settings\SettingsInterface;
+use App\Models\Situation;
+
 
 class ShowSituationAction extends Action{
 	private $twig;
@@ -18,14 +21,23 @@ class ShowSituationAction extends Action{
 		$this->twig = $twig;
 	}
 
+	
 	/**
 	 * {@inheritdoc}
 	 */
 	protected function action(): Response {
-		$template  = './show_situation.html.twig';
-		$title     = 'Fuga';
+
+		$request = $this->request;
+
+		$trigger_id = $request->getQueryParams()["trigger_id"] ?? null;
+		// $trigger_id = $request->getQueryParams();
+		$template  = 'show_situation.html.twig';
+		
+		$situations = Situation::query()
+			->where("trigger_id", $trigger_id)
+			->get();
 
 		return $this->twig->render($this->response, $template, 
-			[ 'templateTitle' => $title]);
+			[ 'trigger_id' => $trigger_id, 'situations' => $situations]);
 	}
 }

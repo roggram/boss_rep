@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Application\Actions\AddAction\AddTriggerAction;
+use App\Application\Actions\EditAction\EditSituationAction;
 use App\Application\Actions\ShowAction\ShowMessageAction;
 use App\Application\Actions\ShowAction\ShowSituationAction;
 use App\Application\Actions\ShowAction\ShowTriggerAction;
@@ -23,9 +25,10 @@ return function (App $app) {
         return $response;
     });
     $app->get('/show_trigger', ShowTriggerAction::class);
+    $app->get('/add_trigger', AddTriggerAction::class);
     $app->get('/show_situation', ShowSituationAction::class);
+    $app->get('/edit_situation', EditSituationAction::class);
     $app->get('/show_message', ShowMessageAction::class);
-
 
     $app->group('/users', function (Group $group) {
         $group->get('', ListUsersAction::class);

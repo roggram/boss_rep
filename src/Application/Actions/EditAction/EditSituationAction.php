@@ -2,16 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Application\Actions\ShowAction;
+namespace App\Application\Actions\EditAction;
 
 use App\Application\Actions\Action;
 use Slim\Views\Twig;
 use Psr\Log\LoggerInterface;
+use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use App\Application\Settings\SettingsInterface;
-use App\Models\Trigger;
+use App\Models\Situation;
 
-class ShowTriggerAction extends Action{
+
+class EditSituationAction extends Action{
 	private $twig;
 
 	public function __construct(LoggerInterface $logger, Twig $twig, SettingsInterface $settings) {
@@ -19,22 +21,23 @@ class ShowTriggerAction extends Action{
 		$this->twig = $twig;
 	}
 
+	
 	/**
 	 * {@inheritdoc}
 	 */
 	protected function action(): Response {
-		$template  = 'show_trigger.html.twig';
-		// $this->logger->debug('Twig instance:', ['twig' => get_class($this->twig)]);
-		// $this->logger->debug('Template path:', ['path' => $template]);
-		// $template  = 'templates/show_trigger.html.twig';
-		// $title     = 'ShowTrigger';
 
-		$triggers = Trigger::all();
-		// if (count($triggers) === 0){
-			
-		// }
+		$request = $this->request;
+
+		$trigger_id = $request->getQueryParams()["trigger_id"] ?? null;
+		// $trigger_id = $request->getQueryParams();
+		$template  = 'edit_situation.html.twig';
+		
+		$situations = Situation::query()
+			->where("trigger_id", $trigger_id)
+			->get();
 
 		return $this->twig->render($this->response, $template, 
-			['triggers' => $triggers]);
+			[ 'trigger_id' => $trigger_id, 'situations' => $situations]);
 	}
 }
