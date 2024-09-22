@@ -25,9 +25,7 @@ class AddTriggerAction extends Action{
 	protected function action(): Response {
 		$template  = 'add_trigger.html.twig';
 
-		$triggers = Trigger::all();
-
 		return $this->twig->render($this->response, $template, 
-			['triggers' => $triggers]);
+			[]);
 	}
 }

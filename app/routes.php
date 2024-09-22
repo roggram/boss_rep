@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use App\Application\Actions\AddAction\AddSituationAction;
 use App\Application\Actions\AddAction\AddTriggerAction;
+use App\Application\Actions\AddAction\AddTriggerExecAction;
+use App\Application\Actions\EditAction\EditMessageAction;
 use App\Application\Actions\EditAction\EditSituationAction;
 use App\Application\Actions\ShowAction\ShowMessageAction;
 use App\Application\Actions\ShowAction\ShowSituationAction;
@@ -25,12 +27,14 @@ return function (App $app) {
         $response->getBody()->write('Hello worldおお＠＠＠!');
         return $response;
     });
-    $app->get('/show_trigger', ShowTriggerAction::class);
     $app->get('/add_trigger', AddTriggerAction::class);
+    $app->post('/add_trigger_exec', AddTriggerExecAction::class);
     $app->get('/add_situation', AddSituationAction::class);
+    $app->get('/show_trigger', ShowTriggerAction::class);
     $app->get('/show_situation', ShowSituationAction::class);
-    $app->get('/edit_situation', EditSituationAction::class);
     $app->get('/show_message', ShowMessageAction::class);
+    $app->get('/edit_situation', EditSituationAction::class);
+    $app->get('/edit_situation_message', EditMessageAction::class);
 
     $app->group('/users', function (Group $group) {
         $group->get('', ListUsersAction::class);

@@ -11,6 +11,7 @@
       border-radius: 8px;
       padding: 8px;
       margin: 32px;
+      background-color: rgb(194, 194, 194);
       /* justify-content: space-between; */
       /* align-items: center; */
     }
@@ -20,16 +21,16 @@
     .one_situation_container > .trigger_edit_form {
       margin-left: 8px;
     }
-    .trigger_edit_button {
+    .situation_edit_button {
       background: none;
       border: none;
       cursor: pointer;
       font-size: 18px;
     }
-    .new_trigger_container {
+    .new_situation_container {
       margin-left: auto;
       margin-right: auto;
-      width: 96px;
+      width: 128px;
     }
     .situation_show_form {
       width: 100%;
@@ -46,14 +47,18 @@
   </style>
 </head>
 <body>
+<h1>状況の編集画面</h1>
   {% for situation in situations %}
     <div class="one_situation_container">
-      <form method="get" action="http://localhost:8080/show_message" class="situation_show_form">
+      <form method="get" action="http://localhost:8080/edit_situation_message" class="situation_show_form">
         <input type="hidden" name="trigger_id" value="{{trigger_id}}">
         <input type="hidden" name="situation_id" value="{{situation.id}}">
         <button type="submit" class="situation_show_button">{{ situation.situation_name }}</button>
       </form>
     </div>
   {% endfor %}
+  <form action="#" method="get" class="new_situation_container">
+    <button>＋ 新規状況追加</button>
+  </form>
 </body>
 </html>
