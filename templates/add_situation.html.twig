@@ -53,9 +53,9 @@
 <body>
   <h1>新しい状況追加</h1>
   <div class="one_situation_container">
-        <form method="get" action="http://localhost:8080/" class="situation_edit_form">
-          <label for=""></label>
-          <input type="text" name="add_situation_id" value="" placeholder="テキスト入力欄">
+        <form method="post" action="http://localhost:8080/add_situation_exec" class="situation_edit_form">
+          <input type="text" name="add_situation_name" value="" placeholder="テキスト入力欄" required>
+          <input type="hidden" name="trigger_id" value="{{ trigger_id }}">
         <button type="submit" class="situation_edit_button">+</button>
       </form>
       <br>

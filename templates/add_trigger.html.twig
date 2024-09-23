@@ -54,10 +54,13 @@
   <h1>新規人物追加</h1>
   <div class="one_trigger_container">
       <form method="post" action="http://localhost:8080/add_trigger_exec" class="trigger_edit_form">
-        <input type="text" name="trigger_name" placeholder="例:xx先輩">
-        <button type="submit" class="trigger_edit_button">+</button>
+        <input type="text" name="trigger_name" placeholder="例:xx先輩" required>
+        <button>+</button>
       </form>
       <br>
+      <form method="get" action="http://localhost:8080/show_trigger" class="trigger_edit_form">
+        <button>戻る</button>
+      </form> 
   </div>
 </body>
 </html>

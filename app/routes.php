@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Application\Actions\AddAction\AddSituationAction;
+use App\Application\Actions\AddAction\AddSituationExecAction;
 use App\Application\Actions\AddAction\AddTriggerAction;
 use App\Application\Actions\AddAction\AddTriggerExecAction;
 use App\Application\Actions\EditAction\EditMessageAction;
@@ -29,6 +30,7 @@ return function (App $app) {
     });
     $app->get('/add_trigger', AddTriggerAction::class);
     $app->post('/add_trigger_exec', AddTriggerExecAction::class);
+    $app->post('/add_situation_exec', AddSituationExecAction::class);
     $app->get('/add_situation', AddSituationAction::class);
     $app->get('/show_trigger', ShowTriggerAction::class);
     $app->get('/show_situation', ShowSituationAction::class);

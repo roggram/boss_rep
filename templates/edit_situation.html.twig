@@ -57,8 +57,9 @@
       </form>
     </div>
   {% endfor %}
-  <form action="#" method="get" class="new_situation_container">
-    <button>＋ 新規状況追加</button>
+  <form method="get" action="http://localhost:8080/add_situation" class="new_situation_container">
+    <input type="hidden" name="trigger_id" value="{{trigger_id}}">
+    <button>+ 新規状況追加</button>
   </form>
 </body>
 </html>

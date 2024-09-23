@@ -34,12 +34,15 @@ class AddTriggerExecAction extends Action{
     // $trigger_name = $params->trigger_name;
 
     $trigger = new Trigger();
-    $trigger->name = $trigger_name;
+
+    $trigger->trigger_name = $trigger_name;
+    $trigger->created_at = date("now");
+    $trigger->deleted_at = null;
     $trigger->save();
 
-		// $triggers = Trigger::all();
+		$triggers = Trigger::all();
 
 		return $this->twig->render($this->response, $template, 
-			[]);
+			['triggers' => $triggers]);
 	}
 }
