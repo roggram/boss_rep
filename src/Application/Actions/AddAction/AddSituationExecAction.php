@@ -25,7 +25,8 @@ class AddSituationExecAction extends Action{
 	 */
 	protected function action(): Response {
 		$request = $this->request;
-		$template  = 'show_trigger.html.twig';
+		$response = $this->response;
+		$template  = 'show_situation.html.twig';
 
     $params = $request->getParsedBody();
     
@@ -40,9 +41,8 @@ class AddSituationExecAction extends Action{
     $situation->deleted_at = null;
     $situation->save();
 
-		$triggers = Trigger::all();
-
-		return $this->twig->render($this->response, $template, 
-			['trigger_id' => $trigger_id, 'triggers' => $triggers]);
+    return $response
+      ->withHeader("Location", "http://localhost:8080/show_situation?trigger_id={$trigger_id}")
+      ->withStatus(303);
 	}
 }
