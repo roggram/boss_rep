@@ -27,13 +27,26 @@
       font-size: 12px;
     }
     .new_message_container {
+      display: flex;
+      justify-content: space-evenly;
       margin-left: auto;
       margin-right: auto;
-      width: 140px;
+      width: 100%;
     }
+
+    .new_message_container > input{
+      width: 80%;
+    }
+
     .message_show_form {
       width: 100%;
     }
+
+    .message_show_form > .message_edit_form{
+      border: none;
+      width: 100%;
+    }
+    
     .message_show_button {
       background: none;
       border: none;
@@ -46,24 +59,29 @@
   </style>
 </head>
 <body>
+  <button type="button" onclick="history.back()">戻る</button>
   {% for message in messages %}
     <div class="one_message_container">
         <form method="get" action="http://localhost:8080/show_situation"  class="message_show_form">
           <input type="hidden" name="message_id" value="{{message.id}}">
-          <button type="submit" class="message_show_button">{{ message.message }}</button>
+          <input class="message_edit_form" type="text" name="message_edit_form" value="{{ message.message }}">
+          {# <button type="submit" class="message_show_button">{{ message.message }}</button> #}
         </form>
         <form method="get" action="http://localhost:8080/edit_situation" class="message_edit_form">
           <input type="hidden" name="message_id" value="{{message.id}}">
           <button type="submit" class="message_edit_button">更新</button>
         </form>
         <form method="get" action="http://localhost:8080/edit_situation" class="message_edit_form">
-          <input type="hidden" name="message_id" value="{{message.id}}">
+          <input type="hidden" name="message_id" value="{{ message.id }}">
           <button type="submit" class="message_edit_button">削除</button>
         </form>
         <br>
     </div>
   {% endfor %}
-  <form action="http://localhost:8080/add_message" method="get" class="new_message_container">
+  <form action="http://localhost:8080/add_message" method="post" class="new_message_container">
+    <input type="text" name="add_message_text" required>
+    <input type="hidden" name="trigger_id" value="{{ trigger_id }}">
+    <input type="hidden" name="situation_id" value="{{ situation_id }}">
     <button type="submit">＋新規テキスト登録</button>
   </form>
 </body>

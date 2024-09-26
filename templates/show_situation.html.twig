@@ -46,6 +46,7 @@
   </style>
 </head>
 <body>
+  <button type="button" onclick="history.back()">戻る</button>
   {% for situation in situations %}
     <div class="one_situation_container">
       <form method="get" action="http://localhost:8080/show_message" class="situation_show_form">

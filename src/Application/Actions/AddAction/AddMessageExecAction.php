@@ -9,9 +9,10 @@ use Slim\Views\Twig;
 use Psr\Log\LoggerInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use App\Application\Settings\SettingsInterface;
+use App\Models\Message;
 use App\Models\Trigger;
 
-class AddTriggerExecAction extends Action{
+class AddMessageExecAction extends Action{
 	private $twig;
 
 	public function __construct(LoggerInterface $logger, Twig $twig, SettingsInterface $settings) {
@@ -23,19 +24,20 @@ class AddTriggerExecAction extends Action{
 	 * {@inheritdoc}
 	 */
 	protected function action(): Response {
-    $params = $this->request->getParsedBody();
-    
-    // リクエストパラメータ
-    $trigger_name = $params["trigger_name"] ?? null;
-    
-    // $trigger_name = $params->trigger_name;
+		$params = $this->request->getParsedBody();
 
-    $trigger = new Trigger();
+		$add_message_text = $params["add_message_text"] ?? null;
+		$trigger_id = $params["trigger_id"] ?? null;
+		$situation_id = $params["situation_id"] ?? null;
+		
+    $message = new Message();
+		$message->message = $add_message_text;
+		$message->trigger_id = $trigger_id;
+		$message->situation_id = $situation_id;
+		$message->created_at = Date("now");
+		$message->deleted_at = null;
 
-    $trigger->trigger_name = $trigger_name;
-    $trigger->created_at = date("now");
-    $trigger->deleted_at = null;
-    $trigger->save();
+		$message->save();
 
 		return $this->response
 			->withHeader("Location", "http://localhost:8080/show_trigger")
