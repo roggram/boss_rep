@@ -12,7 +12,6 @@
       border-radius: 8px;
       padding: 8px;
       margin: 32px;
-      justify-content: space-between;
       align-items: center;
     }
     .one_message_container > .message_name {
@@ -40,12 +39,14 @@
     }
 
     .message_show_form {
-      width: 100%;
+      flex-grow: 1;
+      margin-right: 8px;
     }
 
     .message_show_form > .message_edit_form{
-      border: none;
       width: 100%;
+      border: none;
+      background: transparent;
     }
     
     .message_show_button {
