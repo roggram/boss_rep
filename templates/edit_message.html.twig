@@ -64,19 +64,19 @@
   <button type="button" onclick="history.back()">戻る</button>
   {% for message in messages %}
     <div class="one_message_container">
-        <form method="post" action="http://localhost:8080/update_message"  class="message_show_form">
+        <form method="post" action="/update_message"  class="message_show_form">
           <input type="hidden" name="message_id" value="{{message.id}}">
           <input class="message_edit_form" type="text" name="update_message_text" value="{{ message.message }}">
           <button type="submit" class="message_edit_button">更新</button>
         </form>
-        <form method="post" action="http://localhost:8080/delete_message" class="message_edit_form">
+        <form method="post" action="/delete_message" class="message_edit_form">
           <input type="hidden" name="message_id" value="{{ message.id }}">
           <button type="submit" class="message_edit_button">削除</button>
         </form>
         <br>
     </div>
   {% endfor %}
-  <form action="http://localhost:8080/add_message" method="post" class="new_message_container">
+  <form action="/add_message" method="post" class="new_message_container">
     <input type="text" name="add_message_text" required>
     <input type="hidden" name="trigger_id" value="{{ trigger_id }}">
     <input type="hidden" name="situation_id" value="{{ situation_id }}">

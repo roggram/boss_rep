@@ -38,7 +38,7 @@ class AddTriggerExecAction extends Action{
     $trigger->save();
 
 		return $this->response
-			->withHeader("Location", "http://localhost:8080/show_trigger")
+			->withHeader("Location", "/show_trigger")
 			->withStatus(303);
 	}
 }

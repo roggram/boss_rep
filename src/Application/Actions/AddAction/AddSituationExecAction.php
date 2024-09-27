@@ -42,7 +42,7 @@ class AddSituationExecAction extends Action{
     $situation->save();
 
     return $response
-      ->withHeader("Location", "http://localhost:8080/show_situation?trigger_id={$trigger_id}")
+      ->withHeader("Location", "/show_situation?trigger_id={$trigger_id}")
       ->withStatus(303);
 	}
 }
