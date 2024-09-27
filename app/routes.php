@@ -10,6 +10,7 @@ use App\Application\Actions\AddAction\AddTriggerExecAction;
 use App\Application\Actions\EditAction\DeleteMessageAction;
 use App\Application\Actions\EditAction\EditMessageAction;
 use App\Application\Actions\EditAction\EditSituationAction;
+use App\Application\Actions\EditAction\UpdateMessageExecAction;
 use App\Application\Actions\ShowAction\ShowMessageAction;
 use App\Application\Actions\ShowAction\ShowSituationAction;
 use App\Application\Actions\ShowAction\ShowTriggerAction;
@@ -43,6 +44,8 @@ return function (App $app) {
     $app->get('/show_message', ShowMessageAction::class);
     $app->post('/add_message', AddMessageExecAction::class);
     $app->get('/edit_message', EditMessageAction::class);
+    $app->post('/update_message', UpdateMessageExecAction::class);
+    $app->post('/delete_message', DeleteMessageExecAction::class);
 
     $app->group('/users', function (Group $group) {
         $group->get('', ListUsersAction::class);
