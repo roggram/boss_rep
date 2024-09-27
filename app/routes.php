@@ -42,8 +42,7 @@ return function (App $app) {
     // Message
     $app->get('/show_message', ShowMessageAction::class);
     $app->post('/add_message', AddMessageExecAction::class);
-    $app->get('/edit_situation_message', EditMessageAction::class);
-    $app->post('/delete_message', DeleteMessageAction::class);
+    $app->get('/edit_message', EditMessageAction::class);
 
     $app->group('/users', function (Group $group) {
         $group->get('', ListUsersAction::class);

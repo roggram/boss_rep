@@ -32,7 +32,7 @@ class EditMessageAction extends Action{
 		$trigger_id = $request->getQueryParams()["trigger_id"] ?? null;
 		$situation_id = $request->getQueryParams()["situation_id"] ?? null;
 		// $trigger_id = $request->getQueryParams();
-		$template  = 'edit_situation_message.html.twig';
+		$template  = 'edit_message.html.twig';
 		
 		$messages = Message::query()
 			->where("trigger_id", $trigger_id)

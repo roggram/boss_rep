@@ -51,7 +51,7 @@
   <button type="button" onclick="history.back()">戻る</button>
   {% for situation in situations %}
     <div class="one_situation_container">
-      <form method="get" action="http://localhost:8080/edit_situation_message" class="situation_show_form">
+      <form method="get" action="edit_message" class="situation_show_form">
         <input type="hidden" name="trigger_id" value="{{trigger_id}}">
         <input type="hidden" name="situation_id" value="{{situation.id}}">
         <button type="submit" class="situation_show_button">{{ situation.situation_name }}</button>
