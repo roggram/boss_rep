@@ -7,6 +7,9 @@ class Trigger extends Model {
     protected $table = 'triggers';
     protected $dates = ['created_at', 'updated_at'];
 
+    const UPDATED_AT = null;
+
+
     public function getAttribute($key) {
         return parent::getAttribute(Str::snake($key));
     }

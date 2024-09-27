@@ -8,6 +8,7 @@
     .one_message_container {
       display: flex;
       border: solid 1px gray;
+      background-color: rgb(194, 194, 194);
       border-radius: 8px;
       padding: 8px;
       margin: 32px;
@@ -67,11 +68,11 @@
           <input class="message_edit_form" type="text" name="message_edit_form" value="{{ message.message }}">
           {# <button type="submit" class="message_show_button">{{ message.message }}</button> #}
         </form>
-        <form method="get" action="http://localhost:8080/edit_situation" class="message_edit_form">
+        <form method="get" action="http://localhost:8080/edit_message" class="message_edit_form">
           <input type="hidden" name="message_id" value="{{message.id}}">
           <button type="submit" class="message_edit_button">更新</button>
         </form>
-        <form method="get" action="http://localhost:8080/edit_situation" class="message_edit_form">
+        <form method="get" action="http://localhost:8080/delete_message" class="message_edit_form">
           <input type="hidden" name="message_id" value="{{ message.id }}">
           <button type="submit" class="message_edit_button">削除</button>
         </form>

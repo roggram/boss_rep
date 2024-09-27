@@ -64,19 +64,22 @@
     </style>
 </head>
 <body>
-    {% for message in messages %}
     <div class="chat-container">
-        <div class="message left">
-            <div class="chat_box">{{ message.message }}</div>
-        </div>
-        <div class="message right">
-            <div class="chat_box">ないです</div>
-        </div>
+    <button type="button" onclick="history.back()">戻る</button>
+    <hr>
+        {% for message in messages %}
+            <div class="message left">
+                <div class="chat_box">{{ message.message }}</div>
+            </div>
+            <div class="message right">
+                <div class="chat_box">ないです</div>
+            </div>
+        {% endfor %}
+
         <div class="input-container">
             <input type="text" placeholder="入力...">
             <button>→</button>
         </div>
     </div>
-    {% endfor %}
 </body>
 </html>
