@@ -7,7 +7,7 @@ use App\Application\Actions\AddAction\AddSituationAction;
 use App\Application\Actions\AddAction\AddSituationExecAction;
 use App\Application\Actions\AddAction\AddTriggerAction;
 use App\Application\Actions\AddAction\AddTriggerExecAction;
-use App\Application\Actions\EditAction\DeleteMessageAction;
+use App\Application\Actions\DeleteAction\DeleteMessageExecAction;
 use App\Application\Actions\EditAction\EditMessageAction;
 use App\Application\Actions\EditAction\EditSituationAction;
 use App\Application\Actions\EditAction\UpdateMessageExecAction;
