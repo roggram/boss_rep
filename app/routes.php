@@ -32,9 +32,9 @@ return function (App $app) {
         return $response;
     });
     // Trigger
+    $app->get('/show_trigger', ShowTriggerAction::class);
     $app->get('/add_trigger', AddTriggerAction::class);
     $app->post('/add_trigger_exec', AddTriggerExecAction::class);
-    $app->get('/show_trigger', ShowTriggerAction::class);
     // Situation
     $app->post('/add_situation_exec', AddSituationExecAction::class);
     $app->get('/add_situation', AddSituationAction::class);

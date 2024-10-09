@@ -27,8 +27,6 @@ class AddTriggerExecAction extends Action{
     
     // リクエストパラメータ
     $trigger_name = $params["trigger_name"] ?? null;
-    
-    // $trigger_name = $params->trigger_name;
 
     $trigger = new Trigger();
 

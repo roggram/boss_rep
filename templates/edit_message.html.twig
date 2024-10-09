@@ -62,6 +62,10 @@
 </head>
 <body>
   <button type="button" onclick="history.back()">戻る</button>
+  <a href="/show_trigger">ホーム画面へ</a>
+  {# <form action="/show_trigger" method="get">
+    <button type="submit">ホーム画面へ</button>
+  </form> #}
   {% for message in messages %}
     <div class="one_message_container">
         <form method="post" action="/update_message"  class="message_show_form">

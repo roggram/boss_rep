@@ -193,7 +193,7 @@ abstract class Model implements Arrayable, ArrayAccess, CanBeEscapedWhenCastToSt
      *
      * @var string|null
      */
-    const UPDATED_AT = "updated_at";
+    const UPDATED_AT = 'updated_at';
 
     /**
      * Create a new Eloquent model instance.

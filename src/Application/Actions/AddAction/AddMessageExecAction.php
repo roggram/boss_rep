@@ -40,7 +40,7 @@ class AddMessageExecAction extends Action{
 		$message->save();
 
 		return $this->response
-			->withHeader("Location", "/show_trigger")
+			->withHeader("Location", "/edit_message?trigger_id={$trigger_id}&situation_id={$situation_id}")
 			->withStatus(303);
 	}
 }

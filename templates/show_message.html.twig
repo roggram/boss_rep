@@ -65,21 +65,69 @@
 </head>
 <body>
     <div class="chat-container">
-    <button type="button" onclick="history.back()">戻る</button>
-    <hr>
-        {% for message in messages %}
-            <div class="message left">
-                <div class="chat_box">{{ message.message }}</div>
+        <button type="button" onclick="history.back()">戻る</button>
+        <hr>
+            {# {% for message in messages %} #}
+            <div id="chat-root">
+                {# <div class="message left"> #}
+                    {# <div class="chat_box">{{ message.message }}</div> #}
+                {# </div> #}
+                {# <div class="message right">
+                    <div class="chat_box">ないです</div>
+                </div> #}
+            {# {% endfor %} #}
+            </div> 
+            <div class="input-container">
+                <input type="text" placeholder="入力..." id="reply-text">
+                <button onclick="showMessage()">→</button>
             </div>
-            <div class="message right">
-                <div class="chat_box">ないです</div>
-            </div>
-        {% endfor %}
-
-        <div class="input-container">
-            <input type="text" placeholder="入力...">
-            <button>→</button>
-        </div>
     </div>
+    <script type="text/javascript">
+        const chatRoot = document.getElementById('chat-root')
+        const replyText = document.getElementById('reply-text')
+
+        // convert PHP array to JavaScript array
+        const messageList = {{ messages|json_encode|raw }}
+        const max = {{ messages|length }}
+
+        let index = 0
+        const showMessage = () => {
+            const reply = replyText.value
+            if (reply === '') {
+                return
+            }
+            appendReply(reply)
+            replyText.value = ''
+
+            if (index >= max) {
+                return
+            }
+            const message = messageList[index].message
+            appendMessage(message)
+            index += 1
+        }
+        // 左に助言を一つ表示する
+        const appendMessage = (message) => {
+            const left = document.createElement('div')
+            left.className = 'message left'
+            const chatBox = document.createElement('div')
+            chatBox.className = 'chat_box'
+            chatBox.textContent = message
+            left.appendChild(chatBox)
+            chatRoot.appendChild(left)
+        }
+        // 右に返答を一つ表示する
+        const appendReply = (reply) => {
+            const right = document.createElement('div')
+            right.className = 'message right'
+            const chatBox = document.createElement('div')
+            chatBox.className = 'chat_box'
+            chatBox.textContent = reply
+            right.appendChild(chatBox)
+            chatRoot.appendChild(right)
+        }
+        appendMessage(messageList[index].message)
+        index += 1
+    </script>  
 </body>
 </html>
