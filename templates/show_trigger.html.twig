@@ -56,6 +56,10 @@
           <input type="hidden" name="trigger_id" value="{{trigger.id}}">
           <button type="submit" class="trigger_edit_button">編集</button>
         </form>
+        <form method="get" action="/edit_situation" class="trigger_edit_form">
+          <input type="hidden" name="trigger_id" value="{{trigger.id}}">
+          <button type="submit" class="trigger_edit_button">削除</button>
+        </form>
         <br>
     </div>
   {% endfor %}
