@@ -6,13 +6,13 @@
   <title>show_situation</title>
   <style>
     .one_situation_container {
-      /* display: flex; */
+      display: flex;
       border: solid 1px gray;
       border-radius: 8px;
       padding: 8px;
       margin: 32px;
-      /* justify-content: space-between; */
-      /* align-items: center; */
+      justify-content: space-between;
+      align-items: center;
     }
     .one_situation_container > .trigger_name {
       flex-grow: 1;
@@ -20,11 +20,11 @@
     .one_situation_container > .trigger_edit_form {
       margin-left: 8px;
     }
-    .trigger_edit_button {
-      background: none;
+    .situation_edit_button {
       border: none;
       cursor: pointer;
       font-size: 18px;
+      margin-left: 4px;
     }
     .new_trigger_container {
       margin-left: auto;
@@ -54,6 +54,15 @@
         <input type="hidden" name="trigger_id" value="{{trigger_id}}">
         <input type="hidden" name="situation_id" value="{{situation.id}}">
         <button type="submit" class="situation_show_button">{{ situation.situation_name }}</button>
+      </form>
+      <form method="get" action="/edit_situation" class="situation_edit_button">
+          <input type="hidden" name="situation_id" value="{{situation.id}}">
+          <input type="hidden" name="trigger_id" value="{{trigger_id}}">
+          <button type="submit" class="situation_edit_button">編集</button>
+      </form>
+      <form method="post" action="/delete_situation" class="situation_edit_button">
+        <input type="hidden" name="situation_id" value="{{situation.id}}">
+        <button type="submit" class="situation_edit_button">削除</button>
       </form>
     </div>
   {% endfor %}
