@@ -98,3 +98,9 @@
 [2024-10-12T01:19:58.512716+00:00] slim-app.INFO: Deleted messages for trigger_id: 24 [] {"uid":"6f23b51"}
 [2024-10-12T11:54:34.685065+00:00] slim-app.INFO: Deleted situations for trigger_id: 25 [] {"uid":"92d8bad"}
 [2024-10-12T11:54:34.686640+00:00] slim-app.INFO: Deleted messages for trigger_id: 25 [] {"uid":"92d8bad"}
+[2024-10-12T14:16:32.172183+00:00] slim-app.INFO: Deleted situations for trigger_id: 2 [] {"uid":"26d5f84"}
+[2024-10-12T14:16:32.175588+00:00] slim-app.INFO: Deleted messages for trigger_id: 2 [] {"uid":"26d5f84"}
+[2024-10-12T14:16:37.066463+00:00] slim-app.INFO: Deleted situations for trigger_id: 26 [] {"uid":"2a8b7da"}
+[2024-10-12T14:16:37.067172+00:00] slim-app.INFO: Deleted messages for trigger_id: 26 [] {"uid":"2a8b7da"}
+[2024-10-13T12:40:22.153548+00:00] slim-app.INFO: Deleted situations for trigger_id: 0 [] {"uid":"6fb42f9"}
+[2024-10-13T12:41:34.883138+00:00] slim-app.INFO: Deleted situations for trigger_id: 2 [] {"uid":"66cf8e2"}

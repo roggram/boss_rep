@@ -8,6 +8,7 @@ use App\Application\Actions\AddAction\AddSituationExecAction;
 use App\Application\Actions\AddAction\AddTriggerAction;
 use App\Application\Actions\AddAction\AddTriggerExecAction;
 use App\Application\Actions\DeleteAction\DeleteMessageExecAction;
+use App\Application\Actions\DeleteAction\DeleteSituationAction;
 use App\Application\Actions\DeleteAction\DeleteTriggerAction;
 use App\Application\Actions\EditAction\EditMessageAction;
 use App\Application\Actions\EditAction\EditSituationAction;
@@ -29,7 +30,7 @@ return function (App $app) {
     });
 
     $app->get('/', function (Request $request, Response $response) {
-        $response->getBody()->write('Hello worldおお＠＠＠!');
+        $response->getBody()->write('Hello worldおお!');
         return $response;
     });
     // Trigger
@@ -42,6 +43,7 @@ return function (App $app) {
     $app->get('/add_situation', AddSituationAction::class);
     $app->get('/show_situation', ShowSituationAction::class);
     $app->get('/edit_situation', EditSituationAction::class);
+    $app->post('/delete_situation', DeleteSituationAction::class);
     // Message
     $app->get('/show_message', ShowMessageAction::class);
     $app->post('/add_message', AddMessageExecAction::class);
