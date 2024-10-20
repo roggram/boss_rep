@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Application\Actions\DeleteAction;
+namespace App\Application\Actions\EditAction;
 
 use App\Application\Actions\Action;
 use Slim\Views\Twig;
@@ -10,12 +10,10 @@ use Psr\Log\LoggerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use App\Application\Settings\SettingsInterface;
-use App\Models\Trigger;
-use App\Models\Situation;
 use App\Models\Message;
+use App\Models\Situation;
 
-
-class DeleteSituationAction extends Action{
+class EditSituationNameExecAction extends Action{
 	private $twig;
 
 	public function __construct(LoggerInterface $logger, Twig $twig, SettingsInterface $settings) {
@@ -27,19 +25,16 @@ class DeleteSituationAction extends Action{
 	 * {@inheritdoc}
 	 */
 	protected function action(): Response {
+
 		$request = $this->request;
 
-		$situation_id = $request->getParsedBody()["situation_id"] ?? null;
+		$update_situation_name_text = $request->getParsedBody()["update_situation_name_text"] ?? null;
 		$trigger_id = $request->getParsedBody()["trigger_id"] ?? null;
+		$situation_id = $request->getParsedBody()["situation_id"] ?? null;
 
 		$target_situation = Situation::find($situation_id);
-		$target_situation->delete();
-
-		$target_messages = Message::query()
-      ->where("situation_id", $situation_id)
-      ->delete();
-    $this->logger->info("Deleted situations for trigger_id: {$target_messages}");
-
+		$target_situation->situation_name = $update_situation_name_text;
+		$target_situation->save();
 
 		return $this->response
 			->withHeader("Location", "/show_situation?trigger_id={$trigger_id}")

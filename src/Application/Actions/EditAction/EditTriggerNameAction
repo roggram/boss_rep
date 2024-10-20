@@ -10,16 +10,17 @@ use Psr\Log\LoggerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use App\Application\Settings\SettingsInterface;
-use App\Models\Message;
+use App\Models\Situation;
 
 
-class UpdateMessageExecAction extends Action{
+class EditTriggerNameAction extends Action{
 	private $twig;
 
 	public function __construct(LoggerInterface $logger, Twig $twig, SettingsInterface $settings) {
 		parent::__construct($logger, $twig, $settings);
 		$this->twig = $twig;
 	}
+
 	
 	/**
 	 * {@inheritdoc}
@@ -28,19 +29,15 @@ class UpdateMessageExecAction extends Action{
 
 		$request = $this->request;
 
-		$update_message_text = $request->getParsedBody()["update_message_text"] ?? null;
-		$message_id = $request->getParsedBody()["message_id"] ?? null;
-
-		$target_message = Message::find($message_id);
-		$target_message->message = $update_message_text;
-		$target_message->save();
+		$trigger_id = $request->getQueryParams()["trigger_id"] ?? null;
+		// $trigger_id = $request->getQueryParams();
+		$template  = 'edit_situation.html.twig';
 		
-		$trigger_id = $target_message->trigger_id;
-		$situation_id = $target_message->situation_id;
+		$situations = Situation::query()
+			->where("trigger_id", $trigger_id)
+			->get();
 
-		return $this->response
-			// ->withHeader("Location", "/edit_message")
-			->withHeader("Location", "/show_situation?trigger_id={$trigger_id}")
-			->withStatus(303);
+		return $this->twig->render($this->response, $template, 
+			[ 'trigger_id' => $trigger_id, 'situations' => $situations]);
 	}
 }

@@ -13,7 +13,7 @@ use App\Application\Settings\SettingsInterface;
 use App\Models\Situation;
 
 
-class EditSituationAction extends Action{
+class EditSituationNameAction extends Action{
 	private $twig;
 
 	public function __construct(LoggerInterface $logger, Twig $twig, SettingsInterface $settings) {

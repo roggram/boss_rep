@@ -56,16 +56,31 @@
         <input type="hidden" name="situation_id" value="{{situation.id}}">
         <button type="submit" class="situation_show_button">{{ situation.situation_name }}</button>
       </form>
-      <form method="get" action="/edit_situation" class="situation_edit_button">
+      <form method="get" action="/edit_message" class="situation_edit_button">
           <input type="hidden" name="situation_id" value="{{situation.id}}">
           <input type="hidden" name="trigger_id" value="{{trigger_id}}">
-          <button type="submit" class="situation_edit_button">編集</button>
+          <button type="submit" class="situation_edit_button">「{{ situation.situation_name }}」の内容を編集</button>
       </form>
       <form method="post" action="/delete_situation" class="situation_edit_button">
         <input type="hidden" name="situation_id" value="{{situation.id}}">
+        <input type="hidden" name="trigger_id" value="{{trigger_id}}">
         <button type="submit" class="situation_edit_button">削除</button>
       </form>
     </div>
   {% endfor %}
+  <form method="get" action="/edit_situation_name" class="situation_edit_button">
+    {# <input type="hidden" name="situation_id" value="{{situation.id}}"> #}
+    <input type="hidden" name="trigger_id" value="{{trigger_id}}">
+    <button type="submit" class="situation_edit_button">状況名の編集</button>
+  </form>
+  <hr>
+  <div>
+    <h2>新規状況追加</h2>
+    <form method="post" action="/add_situation_exec" class="situation_edit_form">
+      <input type="text" name="add_situation_name" value="" placeholder="テキスト入力欄" required>
+      <input type="hidden" name="trigger_id" value="{{ trigger_id }}">
+      <button type="submit" class="situation_edit_button">+</button>
+    </form>
+  </div>
 </body>
 </html>

@@ -52,10 +52,6 @@
           <input type="hidden" name="trigger_id" value="{{trigger.id}}">
           <button type="submit" class="trigger_show_button">{{ trigger.trigger_name }}</button>
         </form>
-        <form method="get" action="/edit_situation" class="trigger_edit_form">
-          <input type="hidden" name="trigger_id" value="{{trigger.id}}">
-          <button type="submit" class="trigger_edit_button">状況追加</button>
-        </form>
         <form method="post" action="/delete_trigger" class="trigger_edit_form">
           <input type="hidden" name="trigger_id" value="{{trigger.id}}">
           <button type="submit" class="trigger_edit_button">削除</button>
@@ -63,6 +59,10 @@
         <br>
     </div>
   {% endfor %}
+  <form method="get" action="/edit_trigger_name" class="trigger_edit_form">
+    {# <input type="hidden" name="trigger_id" value="{{trigger.id}}"> #}
+    <button type="submit" class="trigger_edit_button">先輩名の編集</button>
+  </form>
   <form action="/add_trigger" method="get" class="new_trigger_container">
     <button type="submit">新規先輩追加</button>
   </form>
