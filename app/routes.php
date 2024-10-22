@@ -15,6 +15,7 @@ use App\Application\Actions\EditAction\EditSituationAction;
 use App\Application\Actions\EditAction\EditSituationNameAction;
 use App\Application\Actions\EditAction\EditSituationNameExecAction;
 use App\Application\Actions\EditAction\EditTriggerNameAction;
+use App\Application\Actions\EditAction\EditTriggerNameExecAction;
 use App\Application\Actions\EditAction\UpdateMessageExecAction;
 use App\Application\Actions\ShowAction\ShowMessageAction;
 use App\Application\Actions\ShowAction\ShowSituationAction;
@@ -42,13 +43,14 @@ return function (App $app) {
     $app->get('/edit_trigger_name', EditTriggerNameAction::class);
     $app->post('/add_trigger_exec', AddTriggerExecAction::class);
     $app->post('/delete_trigger', DeleteTriggerAction::class);
+    $app->post('/edit_trigger_name_exec', EditTriggerNameExecAction::class);
     // Situation
     $app->post('/add_situation_exec', AddSituationExecAction::class);
     $app->get('/add_situation', AddSituationAction::class);
     $app->get('/show_situation', ShowSituationAction::class);
     $app->get('/edit_situation_name', EditSituationNameAction::class);
-    $app->post('/edit_situation_name_exec', EditSituationNameExecAction::class);
     $app->post('/delete_situation', DeleteSituationAction::class);
+    $app->post('/edit_situation_name_exec', EditSituationNameExecAction::class);
     // Message
     $app->get('/show_message', ShowMessageAction::class);
     $app->post('/add_message', AddMessageExecAction::class);

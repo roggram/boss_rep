@@ -7,20 +7,17 @@ namespace App\Application\Actions\EditAction;
 use App\Application\Actions\Action;
 use Slim\Views\Twig;
 use Psr\Log\LoggerInterface;
-use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use App\Application\Settings\SettingsInterface;
-use App\Models\Situation;
+use App\Models\Trigger;
 
-
-class EditTriggerNameAction extends Action{
+class EditTriggerNameExecAction extends Action{
 	private $twig;
 
 	public function __construct(LoggerInterface $logger, Twig $twig, SettingsInterface $settings) {
 		parent::__construct($logger, $twig, $settings);
 		$this->twig = $twig;
 	}
-
 	
 	/**
 	 * {@inheritdoc}
@@ -29,15 +26,15 @@ class EditTriggerNameAction extends Action{
 
 		$request = $this->request;
 
-		$trigger_id = $request->getQueryParams()["trigger_id"] ?? null;
-		// $trigger_id = $request->getQueryParams();
-		$template  = 'edit_situation.html.twig';
-		
-		$situations = Situation::query()
-			->where("trigger_id", $trigger_id)
-			->get();
+		$update_trigger_name_text = $request->getParsedBody()["update_trigger_name_text"] ?? null;
+		$trigger_id = $request->getParsedBody()["trigger_id"] ?? null;
 
-		return $this->twig->render($this->response, $template, 
-			[ 'trigger_id' => $trigger_id, 'situations' => $situations]);
+		$target_trigger = Trigger::find($trigger_id);
+		$target_trigger->trigger_name = $update_trigger_name_text;
+		$target_trigger->save();
+
+		return $this->response
+			->withHeader("Location", "show_trigger")
+			->withStatus(303);
 	}
 }

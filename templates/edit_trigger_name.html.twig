@@ -3,16 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>show_trigger</title>
+  <title>edit_trigger</title>
   <style>
     .one_trigger_container {
-      display: flex;
       border: solid 1px gray;
       border-radius: 8px;
-      padding: 8px;
+      padding: 8px 8px 0;
       margin: 32px;
-      justify-content: space-between;
-      align-items: center;
+      background-color: rgb(194, 194, 194);
     }
     .one_trigger_container > .trigger_name {
       flex-grow: 1;
@@ -21,14 +19,12 @@
       margin-left: 8px;
     }
     .trigger_edit_button {
-      border: none;
       cursor: pointer;
-      font-size: 18px;
     }
     .new_trigger_container {
       margin-left: auto;
       margin-right: auto;
-      width: 96px;
+      width: 128px;
     }
     .trigger_show_form {
       width: 100%;
@@ -45,26 +41,24 @@
   </style>
 </head>
 <body>
-  <h1>先輩一覧</h1>
+<h1>先輩名の編集画面</h1>
+  <button type="button" onclick="history.back()">戻る</button>
+  <a href="show_trigger">ホームに戻る</a>
   {% for trigger in triggers %}
     <div class="one_trigger_container">
-        <form method="get" action="/show_situation"  class="trigger_show_form">
+        {# <form method="get" action="/show_situation"  class="trigger_show_form">
           <input type="hidden" name="trigger_id" value="{{trigger.id}}">
           <button type="submit" class="trigger_show_button">{{ trigger.trigger_name }}</button>
-        </form>
-        <form method="post" action="/delete_trigger" class="trigger_edit_form">
+        </form> #}
+        <form method="post" action="edit_trigger_name_exec" class="trigger_show_form">
           <input type="hidden" name="trigger_id" value="{{trigger.id}}">
-          <button type="submit" class="trigger_edit_button">削除</button>
+          <input class="trigger_show_button" type="text" name="update_trigger_name_text" value="{{ trigger.trigger_name }}">
+          <button type="submit" class="trigger_edit_button">更新</button>
+          {# <input type="hidden" name="situation_id" value="{{situation.id}}"> #}
         </form>
         <br>
     </div>
   {% endfor %}
-  <form method="get" action="edit_trigger_name" class="trigger_edit_form">
-    {# <input type="hidden" name="trigger_id" value="{{trigger.id}}"> #}
-    <button type="submit" class="trigger_edit_button">先輩名の編集</button>
-  </form>
-  <form action="/add_trigger" method="get" class="new_trigger_container">
-    <button type="submit">新規先輩追加</button>
-  </form>
+  
 </body>
 </html>
