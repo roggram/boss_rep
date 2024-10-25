@@ -67,19 +67,13 @@
     <div class="chat-container">
         <button type="button" onclick="history.back()">戻る</button>
         <hr>
-            {# {% for message in messages %} #}
             <div id="chat-root">
-                {# <div class="message left"> #}
-                    {# <div class="chat_box">{{ message.message }}</div> #}
-                {# </div> #}
-                {# <div class="message right">
-                    <div class="chat_box">ないです</div>
-                </div> #}
-            {# {% endfor %} #}
             </div> 
             <div class="input-container">
-                <input type="text" placeholder="入力..." id="reply-text">
-                <button onclick="showMessage()">→</button>
+                <form class="input-container" onsubmit="return handleSubmit(event)">
+                    <input type="text" placeholder="入力..." id="reply-text">
+                    <button type="submit">→</button>
+                </form>
             </div>
     </div>
     <script type="text/javascript">
@@ -128,6 +122,12 @@
         }
         appendMessage(messageList[index].message)
         index += 1
+
+        function handleSubmit(event) {
+            event.preventDefault();  // フォームのデフォルト送信を防ぐ
+            showMessage();          // メッセージを表示する処理
+            return false;           // フォーム送信をキャンセル
+        }
     </script>  
 </body>
 </html>
