@@ -1,90 +1,219 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>edit_message</title>
-  <style>
-    .one_message_container {
-      display: flex;
-      border: solid 1px gray;
-      background-color: rgb(194, 194, 194);
-      border-radius: 8px;
-      padding: 8px;
-      margin: 32px;
-      align-items: center;
-    }
-    .one_message_container > .message_name {
-      flex-grow: 1;
-    }
-    .one_message_container > .message_edit_form {
-      margin-left: 8px;
-    }
-    .message_edit_button {
-      /* background: none; */
-      border: none;
-      cursor: pointer;
-      font-size: 12px;
-    }
-    .new_message_container {
-      display: flex;
-      justify-content: space-evenly;
-      margin-left: auto;
-      margin-right: auto;
-      width: 100%;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>メッセージ編集</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .new_message_container > input{
-      width: 80%;
-    }
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f5f7fb;
+            color: #333;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-    .message_show_form {
-      flex-grow: 1;
-      margin-right: 8px;
-    }
+        /* ナビゲーションバー */
+        .nav-container {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+            align-items: center;
+        }
 
-    .message_show_form > .message_edit_form{
-      width: 100%;
-      border: none;
-      background: transparent;
-    }
-    
-    .message_show_button {
-      background: none;
-      border: none;
-      cursor: pointer;
-      text-align: left;
-      width: 100%;
-      padding: 0;
-      font: inherit;
-    }
-  </style>
+        .nav-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            color: #4a5568;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-button:hover {
+            background: #f8fafc;
+            color: #2d3748;
+        }
+
+        /* メッセージカード */
+        .one_message_container {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .one_message_container:hover {
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .message_show_form {
+            flex-grow: 1;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .message_edit_form {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+
+        .message_edit_form:focus {
+            outline: none;
+            border-color: #4299e1;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+        }
+
+        /* ボタンスタイル */
+        .message_edit_button {
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* 更新ボタン */
+        button[type="submit"].message_edit_button {
+            background-color: #4299e1;
+            color: white;
+            border: none;
+        }
+
+        button[type="submit"].message_edit_button:hover {
+            background-color: #3182ce;
+        }
+
+        /* 削除ボタン */
+        .message_edit_form .message_edit_button {
+            background: none;
+            border: none;
+            color: #e53e3e;
+        }
+
+        .message_edit_form .message_edit_button:hover {
+            background-color: #fff5f5;
+        }
+
+        /* 新規追加フォーム */
+        .new_message_container {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 24px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .new_message_container input[type="text"] {
+            flex-grow: 1;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+
+        .new_message_container input[type="text"]:focus {
+            outline: none;
+            border-color: #4299e1;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+        }
+
+        .new_message_container button {
+            background-color: #4299e1;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .new_message_container button:hover {
+            background-color: #3182ce;
+        }
+    </style>
 </head>
 <body>
-  <button type="button" onclick="history.back()">戻る</button>
-  <a href="/show_trigger">ホーム画面へ</a>
-  {# <form action="/show_trigger" method="get">
-    <button type="submit">ホーム画面へ</button>
-  </form> #}
-  {% for message in messages %}
-    <div class="one_message_container">
-        <form method="post" action="/update_message"  class="message_show_form">
-          <input type="hidden" name="message_id" value="{{message.id}}">
-          <input class="message_edit_form" type="text" name="update_message_text" value="{{ message.message }}">
-          <button type="submit" class="message_edit_button">更新</button>
-        </form>
-        <form method="post" action="/delete_message" class="message_edit_form">
-          <input type="hidden" name="message_id" value="{{ message.id }}">
-          <button type="submit" class="message_edit_button">削除</button>
-        </form>
-        <br>
+    <!-- ナビゲーション -->
+    <div class="nav-container">
+        <button type="button" onclick="history.back()" class="nav-button">
+            <i class="fas fa-arrow-left"></i>
+            戻る
+        </button>
+        <a href="/show_trigger" class="nav-button">
+            <i class="fas fa-home"></i>
+            ホーム画面へ
+        </a>
     </div>
-  {% endfor %}
-  <form action="/add_message" method="post" class="new_message_container">
-    <input type="text" name="add_message_text" required>
-    <input type="hidden" name="trigger_id" value="{{ trigger_id }}">
-    <input type="hidden" name="situation_id" value="{{ situation_id }}">
-    <button type="submit">＋新規テキスト登録</button>
-  </form>
+
+    <!-- メッセージリスト -->
+    {% for message in messages %}
+        <div class="one_message_container">
+            <form method="post" action="/update_message" class="message_show_form">
+                <input type="hidden" name="message_id" value="{{message.id}}">
+                <input class="message_edit_form" type="text" name="update_message_text" value="{{ message.message }}">
+                <button type="submit" class="message_edit_button">
+                    <i class="fas fa-check"></i>
+                    更新
+                </button>
+            </form>
+            <form method="post" action="/delete_message" class="message_edit_form">
+                <input type="hidden" name="message_id" value="{{ message.id }}">
+                <button type="submit" class="message_edit_button">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </form>
+        </div>
+    {% endfor %}
+
+    <!-- 新規追加フォーム -->
+    <form action="/add_message" method="post" class="new_message_container">
+        <input type="text" name="add_message_text" required placeholder="新しいメッセージを入力...">
+        <input type="hidden" name="trigger_id" value="{{ trigger_id }}">
+        <input type="hidden" name="situation_id" value="{{ situation_id }}">
+        <button type="submit">
+            <i class="fas fa-plus"></i>
+            新規テキスト登録
+        </button>
+    </form>
 </body>
 </html>

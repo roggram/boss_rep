@@ -5,129 +5,235 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>show_message</title>
     <style>
+        /* スタイルは前回と同じ */
         body {
             display: flex;
             justify-content: center;
-            align-items: center;
-            /* height: 100vh; */
-            margin: 16% 0;
+            align-items: flex-start;
+            margin: 16px;
+            font-family: Arial, sans-serif;
+            background-color: #f5f7fb;
+            min-height: 100vh;
         }
+
         .chat-container {
-            /* width: 300px; */
-            width: 80%;
-            /* border: 2px solid #ffff00; */
-            border-radius: 10px;
+            width: 100%;
+            max-width: 800px;
             padding: 20px;
-            /* background-color: #2d2d2d; */
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
+
+        .back-button {
+            padding: 8px 16px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        #chat-root {
+            margin: 20px 0;
+        }
+
         .message {
             margin-bottom: 14px;
-            /* max-width: 80%; */
-            /* border: solid gray 1px; */
-            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
         }
+
         .left {
-            align-self: flex-start;
+            align-items: flex-start;
         }
+
         .right {
-            align-self: flex-end;
-            text-align: right;
+            align-items: flex-end;
         }
+
         .chat_box {
-            border-radius: 16px;
             padding: 8px 12px;
+            border-radius: 12px;
+            max-width: 80%;
+            word-wrap: break-word;
             display: inline-block;
         }
-        .left .chat_box {
-            border: solid rgb(192, 192, 192) 1px;
-        }f
-        .right .chat_box {
-            background-color:honeydew;
-            border: solid rgb(192, 192, 192) 1px;
 
+        .left .chat_box {
+            background-color: white;
+            border: 1px solid rgb(192, 192, 192);
+            border-radius: 16px;
         }
+
+        .right .chat_box {
+            background-color: honeydew;
+            border: 1px solid rgb(192, 192, 192);
+            border-radius: 16px;
+        }
+
         .input-container {
             display: flex;
-            margin-top: 80px;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+            padding: 10px 0;
+            background-color: white;
         }
+
         input[type="text"] {
             flex-grow: 1;
             padding: 8px;
-            border-radius: 5px 0 0 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
         }
+
         button {
-            padding: 8px 12px;
-            /* border: none; */
-            border-radius: 0 5px 5px 0;
+            padding: 8px 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
             cursor: pointer;
+            white-space: nowrap;
+            font-size: 1em;
+        }
+
+        .next-button {
+            background-color: #4299e1;
+            color: white;
+            border: none;
+        }
+
+        .next-button:hover {
+            background-color: #3182ce;
         }
     </style>
 </head>
 <body>
     <div class="chat-container">
-        <button type="button" onclick="history.back()">戻る</button>
-        <hr>
-            <div id="chat-root">
-            </div> 
-            <div class="input-container">
-                <form class="input-container" onsubmit="return handleSubmit(event)">
-                    <input type="text" placeholder="入力..." id="reply-text">
-                    <button type="submit">→</button>
-                </form>
-            </div>
+        <button type="button" onclick="history.back()" class="back-button">戻る</button>
+        <div id="chat-root"></div>
+        <div class="input-container">
+            <input type="text" placeholder="メッセージを入力..." id="reply-text">
+            <button type="button" onclick="showNextMessage()" class="next-button">次のメッセージへ</button>
+            <button type="button" onclick="handleSubmit()">送信</button>
+        </div>
     </div>
-    <script type="text/javascript">
-        const chatRoot = document.getElementById('chat-root')
-        const replyText = document.getElementById('reply-text')
 
-        // convert PHP array to JavaScript array
-        const messageList = {{ messages|json_encode|raw }}
-        const max = {{ messages|length }}
+    <script>
+        const chatRoot = document.getElementById('chat-root');
+        const replyText = document.getElementById('reply-text');
 
-        let index = 0
-        const showMessage = () => {
-            const reply = replyText.value
-            if (reply === '') {
-                return
+        const messageList = {{ messages|json_encode|raw }};
+        const max = {{ messages|length }};
+
+        let index = 0;
+        let isProcessing = false;
+
+        // URLをリンクに変換する関数
+        const convertUrlsToLinks = (text) => {
+            const urlRegex = /(https?:\/\/[^\s]+)/g;
+            return text.replace(urlRegex, url => `<a href="${url}" target="_blank" style="color: #4299e1; text-decoration: underline;">${url}</a>`);
+        };
+
+        // 一文字ずつ表示する関数
+        const typeWriter = async (element, text, speed = 50) => {
+            // URLが含まれているかチェック
+            if (/(https?:\/\/[^\s]+)/g.test(text)) {
+                // URLが含まれている場合は一括で表示
+                element.innerHTML = convertUrlsToLinks(text);
+                return;
             }
-            appendReply(reply)
-            replyText.value = ''
 
-            if (index >= max) {
-                return
+            // URLが含まれていない場合は一文字ずつ表示
+            let i = 0;
+            element.textContent = '';
+            while (i < text.length) {
+                element.textContent += text.charAt(i);
+                i++;
+                await new Promise(resolve => setTimeout(resolve, speed));
             }
-            const message = messageList[index].message
-            appendMessage(message)
-            index += 1
-        }
-        // 左に助言を一つ表示する
-        const appendMessage = (message) => {
-            const left = document.createElement('div')
-            left.className = 'message left'
-            const chatBox = document.createElement('div')
-            chatBox.className = 'chat_box'
-            chatBox.textContent = message
-            left.appendChild(chatBox)
-            chatRoot.appendChild(left)
-        }
-        // 右に返答を一つ表示する
+        };
+
+        const handleSubmit = async () => {
+            const reply = replyText.value;
+            if (reply === '' || isProcessing) {
+                return;
+            }
+            
+            isProcessing = true;
+            appendReply(reply);
+            replyText.value = '';
+            
+            if (index < max) {
+                await showNextMessage();
+            }
+            isProcessing = false;
+        };
+
+        const showNextMessage = async () => {
+            if (index >= max || isProcessing) {
+                return;
+            }
+
+            isProcessing = true;
+            const message = messageList[index].message;
+            
+            const left = document.createElement('div');
+            left.className = 'message left';
+            const chatBox = document.createElement('div');
+            chatBox.className = 'chat_box';
+            left.appendChild(chatBox);
+            chatRoot.appendChild(left);
+
+            await typeWriter(chatBox, message, 50);
+            
+            chatBox.scrollIntoView({ behavior: 'smooth' });
+            index++;
+            isProcessing = false;
+        };
+
         const appendReply = (reply) => {
-            const right = document.createElement('div')
-            right.className = 'message right'
-            const chatBox = document.createElement('div')
-            chatBox.className = 'chat_box'
-            chatBox.textContent = reply
-            right.appendChild(chatBox)
-            chatRoot.appendChild(right)
-        }
-        appendMessage(messageList[index].message)
-        index += 1
+            const right = document.createElement('div');
+            right.className = 'message right';
+            const chatBox = document.createElement('div');
+            chatBox.className = 'chat_box';
+            
+            // URLが含まれているかチェック
+            if (/(https?:\/\/[^\s]+)/g.test(reply)) {
+                chatBox.innerHTML = convertUrlsToLinks(reply);
+            } else {
+                chatBox.textContent = reply;
+            }
+            
+            right.appendChild(chatBox);
+            chatRoot.appendChild(right);
+            chatBox.scrollIntoView({ behavior: 'smooth' });
+        };
 
-        function handleSubmit(event) {
-            event.preventDefault();  // フォームのデフォルト送信を防ぐ
-            showMessage();          // メッセージを表示する処理
-            return false;           // フォーム送信をキャンセル
-        }
-    </script>  
+        // Enterキーでの送信を有効にする
+        replyText.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleSubmit();
+            }
+        });
+
+        // 最初のメッセージを表示
+        window.addEventListener('load', async () => {
+            if (messageList.length > 0) {
+                const left = document.createElement('div');
+                left.className = 'message left';
+                const chatBox = document.createElement('div');
+                chatBox.className = 'chat_box';
+                left.appendChild(chatBox);
+                chatRoot.appendChild(left);
+                
+                await typeWriter(chatBox, messageList[0].message, 50);
+                index = 1;
+            }
+        });
+    </script>
 </body>
 </html>
