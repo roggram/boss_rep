@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Application\Actions\LogOutAction;
+namespace App\Application\Actions\LoginAction;
 
 use App\Application\Actions\Action;
 use Slim\Views\Twig;
@@ -13,7 +13,7 @@ use App\Application\Settings\SettingsInterface;
 use App\Models\Message;
 
 
-class LogOutAction extends Action{
+class LoginAction extends Action{
 	private $twig;
 
 	public function __construct(LoggerInterface $logger, Twig $twig, SettingsInterface $settings) {
