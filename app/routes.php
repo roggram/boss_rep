@@ -17,6 +17,7 @@ use App\Application\Actions\EditAction\EditSituationNameExecAction;
 use App\Application\Actions\EditAction\EditTriggerNameAction;
 use App\Application\Actions\EditAction\EditTriggerNameExecAction;
 use App\Application\Actions\EditAction\UpdateMessageExecAction;
+use App\Application\Actions\LogOutAction\LogOutAction;
 use App\Application\Actions\ShowAction\ShowMessageAction;
 use App\Application\Actions\ShowAction\ShowSituationAction;
 use App\Application\Actions\ShowAction\ShowTriggerAction;
@@ -37,6 +38,8 @@ return function (App $app) {
         $response->getBody()->write('Hello worldおお!');
         return $response;
     });
+    // ログアウト
+    $app->get('/logout', LogOutAction::class);
     // Trigger
     $app->get('/show_trigger', ShowTriggerAction::class);
     $app->get('/add_trigger', AddTriggerAction::class);
