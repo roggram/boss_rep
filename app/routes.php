@@ -17,10 +17,12 @@ use App\Application\Actions\EditAction\EditSituationNameExecAction;
 use App\Application\Actions\EditAction\EditTriggerNameAction;
 use App\Application\Actions\EditAction\EditTriggerNameExecAction;
 use App\Application\Actions\EditAction\UpdateMessageExecAction;
-use App\Application\Actions\LoginAction\LoginAction;
+use App\Application\Actions\LoginAction\LineAuthCallbackAction;
+use App\Application\Actions\LoginAction\LineLoginAction;
 use App\Application\Actions\ShowAction\ShowMessageAction;
 use App\Application\Actions\ShowAction\ShowSituationAction;
 use App\Application\Actions\ShowAction\ShowTriggerAction;
+use App\Application\Actions\LoginAction\ShowLoginPageAction;
 use App\Application\Actions\User\ListUsersAction;
 use App\Application\Actions\User\ViewUserAction;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -34,12 +36,17 @@ return function (App $app) {
         return $response;
     });
 
-    $app->get('/', function (Request $request, Response $response) {
-        $response->getBody()->write('Hello worldおお!');
-        return $response;
-    });
+    // $app->get('/', function (Request $request, Response $response) {
+    //     $response->getBody()->write('<a>/show_trigger</a>Hello worldおお!');
+    //     return $response;
+    // });
+    $app->get('/', ShowLoginPageAction::class);
+    // LINEログイン
+    $app->get('/line_login', LineLoginAction::class);
+    // LINEログイン コールバックURLに対応するAPI
+    $app->get('/line_login/callback', LineAuthCallbackAction::class);
     // ログアウト
-    $app->get('/login', LoginAction::class);
+    $app->get('/show_login_page', ShowLoginPageAction::class);
     // Trigger
     $app->get('/show_trigger', ShowTriggerAction::class);
     $app->get('/add_trigger', AddTriggerAction::class);
