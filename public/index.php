@@ -7,6 +7,7 @@ use App\Application\Handlers\ShutdownHandler;
 use App\Application\ResponseEmitter\ResponseEmitter;
 use App\Application\Settings\SettingsInterface;
 use DI\ContainerBuilder;
+use Dotenv\Dotenv;
 use Slim\Factory\AppFactory;
 use Slim\Factory\ServerRequestCreatorFactory;
 use Illuminate\Database\Capsule\Manager as Capsule;
@@ -21,6 +22,10 @@ $containerBuilder = new ContainerBuilder();
 if (false) { // Should be set to true in production
 	$containerBuilder->enableCompilation(__DIR__ . '/../var/cache');
 }
+
+// dotenv
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
 
 // Set up settings
 $settings = require __DIR__ . '/../app/settings.php';

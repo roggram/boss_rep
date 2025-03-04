@@ -144,3 +144,5 @@
 [2024-10-27T00:08:39.611017+00:00] slim-app.INFO: Deleted situations for trigger_id: 0 [] {"uid":"c614ca8"}
 [2024-10-27T00:09:05.332718+00:00] slim-app.INFO: Deleted situations for trigger_id: 27 [] {"uid":"60b67d4"}
 [2024-10-27T00:09:05.334036+00:00] slim-app.INFO: Deleted messages for trigger_id: 27 [] {"uid":"60b67d4"}
+[2025-02-24T02:58:07.555606+00:00] slim-app.INFO: LINEログインコールバック [] {"uid":"37a0536"}
+[2025-02-24T03:02:29.576807+00:00] slim-app.INFO: LINEログインコールバック [] {"uid":"b22bb76"}

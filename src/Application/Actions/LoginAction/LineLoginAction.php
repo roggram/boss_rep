@@ -7,6 +7,7 @@ namespace App\Application\Actions\LoginAction;
 use App\Application\Actions\Action;
 use Slim\Views\Twig;
 use Psr\Log\LoggerInterface;
+use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use App\Application\Settings\SettingsInterface;
 
@@ -16,13 +17,10 @@ class LineLoginAction extends Action{
 	private $channel_id;
 	private $redirect_uri;
 
-	public function __construct(LoggerInterface $logger, Twig $twig, SettingsInterface $settings) {
-		parent::__construct($logger, $twig, $settings);
-		$this->twig = $twig;
-		// $this->channel_id = $_ENV['LINE_CHANNEL_ID'];
-		// $this->redirect_uri = $_ENV['LINE_AUTH_REDIRECT_URI'];
-		$this->channel_id = '2006914093';
-		$this->redirect_uri ='http://localhost:8080/line_login/callback';
+	public function __construct(LoggerInterface $logger, SettingsInterface $settings) {
+		parent::__construct($logger, $settings);
+		$this->channel_id = $_ENV['LINE_CHANNEL_ID'];
+		$this->redirect_uri = $_ENV['LINE_AUTH_REDIRECT_URI'];
 	}
 
 	/**
@@ -53,6 +51,8 @@ class LineLoginAction extends Action{
 		$_SESSION['LINE_LOGIN_NONCE'] = $nonce;
 		// 認可URLの作成
 		$url_to_line_approval_server = $this->generateAuthUrl($state, $nonce);
+		// LINEログインAPIへ送ったクエリパラメータのログ
+		$this->logger->info("LINEログインAPIへ送ったクエリパラメータのログ{$url_to_line_approval_server}");
 
 		// LINE認証認可サーバーURLにリダイレクト
 		return $this->response
@@ -73,9 +73,9 @@ class LineLoginAction extends Action{
 		$params = [
 			'response_type' => 'code',
 			'client_id' => $this->channel_id,
-			'redirect_uri' => urlencode($this->redirect_uri),
+			'redirect_uri' => $this->redirect_uri,
 			'state' => $state,
-			'scope' => 'profile%20openid',
+			'scope' => 'profile openid',
 			'nonce' => $nonce
 		];
 		$query_params = http_build_query($params);
