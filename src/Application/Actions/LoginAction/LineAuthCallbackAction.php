@@ -19,6 +19,7 @@ class LineAuthCallbackAction extends Action{
 	private $twig;
 	public function __construct(LoggerInterface $logger, SettingsInterface $settings, Twig $twig) {
 		parent::__construct($logger, $settings);
+		$this->logger = $logger;
 		$this->$twig = $twig;
 		// $this->channel_id = $_ENV['LINE_CHANNEL_ID'];
 		// $this->redirect_uri = $_ENV['LINE_AUTH_REDIRECT_URI'];
@@ -67,7 +68,75 @@ class LineAuthCallbackAction extends Action{
 		}
 
 		unset($_SESSION["LINE_LOGIN_STATE"]);
-		return $response->withHeader('Location', '/')
-						->withStatus(200);
+
+		// -+-+-+-+-+-+-+-+--+--+-
+		//  curlでアクセストークンを取得
+		// -+-+-+-+-+-+-+-+--+--+-
+		// tokenをリクエストするURLを作成
+		$token_request_url = http_build_query([
+			'grant_type' => 'authorization_code',
+			'code' => $code,
+			'redirect_uri' => $_ENV['LINE_AUTH_REDIRECT_URI'],
+			'client_id' => $_ENV['LINE_CHANNEL_ID'],
+			'client_secret' => $_ENV['LINE_CHANNEL_SECRET']
+		]);
+		$ch = curl_init();
+		curl_setopt_array($ch, [
+			// curlで叩きに行くURLを設定
+			CURLOPT_URL => "https://api.line.me/oauth2/v2.1/token",
+			CURLOPT_POST => true,
+			// レスポンスを文字列で返す
+			CURLOPT_RETURNTRANSFER => true,
+			// ヘッダー情報を設定
+			CURLOPT_HTTPHEADER => "Content-Type: application/x-www-form-urlencoded",
+			// POSTリクエストで送信するデータを指定
+			CURLOPT_POSTFIELDS => $token_request_url,
+		]);
+		// curl_exec($ch)でリクエストを実行
+		$response_from_line_token_server = curl_exec($ch);
+		curl_close($ch);
+		// -+-+-+-+-+-+-+-+--+--+-		
+		// curl終了
+		// -+-+-+-+-+-+-+-+--+--+-
+
+
+		// -+-+-+-+-+-+-+-+--+--+-
+		// -+-+-+-+-+-+-+-+--+--+-
+		// 以降は次のチケットかと思う処理
+		// -+-+-+-+-+-+-+-+--+--+-
+		// -+-+-+-+-+-+-+-+--+--+-
+		if ($response_from_line_token_server) // curlによるtokenリクエストが成功した場合	
+		{
+			// $this->logger->info("curl使用: LINEからアクセスtokenを取得するために送信したURL: {$token_request_url}");
+			// $this->logger->info("curl使用: アクセスtokenを取得するために叩き,返されたjson: {$response_from_line_token_server}");
+			// レスポンスをjson形式に変換
+			$response_from_line_token_server_assoc = json_decode($response_from_line_token_server, true);
+			if ($response_from_line_token_server_assoc === null) // もしjson_decodeが失敗した場合
+			{
+				$this->logger->error("LINEからのアクセスtokenを含むレスポンスのjson_decode()に失敗しました");
+				$this->logger->error("curl使用: LINEからアクセスtokenを取得するために送信したクエリパラメータ: {$token_request_url}");
+				$this->logger->error("curl使用: アクセスtokenを取得するために叩き,返されたjson: {$response_from_line_token_server}");
+				return $this->twig->render($response, "error.html.twig", 
+					['error_message' => "LINEログインに失敗しました"]);
+			}
+			// LINEへアクセスtoken取得のために投げたリクエストに対するレスポンスをログに出力
+			// しつつ、アクセストークンなどを取り出す
+			foreach ($response_from_line_token_server_assoc as $key => $value) {
+				$this->logger->info("{$key}:{$value}\n");
+
+			}
+		}
+		else if ($response_from_line_token_server === false) // curlによるtokenリクエストが失敗した場合
+		{
+			$this->logger->error("curl使用: LINEからアクセスtokenを取得するために送信したクエリパラメータ: {$token_request_url}");
+			$this->logger->error("curl使用: アクセスtokenを取得するために叩き,返されたjson: {$response_from_line_token_server}");
+			return $this->twig->render($response, "error.html.twig", 
+				['error_message' => "curl_execが失敗しました"]);
+		}
+
+
+		
+		// ヘッダー情報を設定
+		return $response->withHeader('Location', '/')->withStatus(200);
 	}
 }
