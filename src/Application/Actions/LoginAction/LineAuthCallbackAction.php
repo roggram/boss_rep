@@ -55,7 +55,7 @@ class LineAuthCallbackAction extends Action{
 		// -+-+-+-+-+-+-+-+--+--+-
 		// エラー時のパラメータがあれば対応
 		// -+-+-+-+-+-+-+-+--+--+-
-		if (isset($params['error']) || isset($params['error_description']) ||isset($params['state'])) {
+		if (isset($params['error']) || isset($params['error_description'])) {
 			// エラーがあればエラーページにリダイレクト
 			return $this->twig->render($response, "error.html.twig", 
 				['error' => ""]);
@@ -105,36 +105,29 @@ class LineAuthCallbackAction extends Action{
 		// 以降は次のチケットかと思う処理
 		// -+-+-+-+-+-+-+-+--+--+-
 		// -+-+-+-+-+-+-+-+--+--+-
-		if ($response_from_line_token_server) // curlによるtokenリクエストが成功した場合	
-		{
-			// $this->logger->info("curl使用: LINEからアクセスtokenを取得するために送信したURL: {$token_request_url}");
-			// $this->logger->info("curl使用: アクセスtokenを取得するために叩き,返されたjson: {$response_from_line_token_server}");
-			// レスポンスをjson形式に変換
-			$response_from_line_token_server_assoc = json_decode($response_from_line_token_server, true);
-			if ($response_from_line_token_server_assoc === null) // もしjson_decodeが失敗した場合
-			{
-				$this->logger->error("LINEからのアクセスtokenを含むレスポンスのjson_decode()に失敗しました");
-				$this->logger->error("curl使用: LINEからアクセスtokenを取得するために送信したクエリパラメータ: {$token_request_url}");
-				$this->logger->error("curl使用: アクセスtokenを取得するために叩き,返されたjson: {$response_from_line_token_server}");
-				return $this->twig->render($response, "error.html.twig", 
-					['error_message' => "LINEログインに失敗しました"]);
-			}
-			// LINEへアクセスtoken取得のために投げたリクエストに対するレスポンスをログに出力
-			// しつつ、アクセストークンなどを取り出す
-			foreach ($response_from_line_token_server_assoc as $key => $value) {
-				$this->logger->info("{$key}:{$value}\n");
-
-			}
-		}
-		else if ($response_from_line_token_server === false) // curlによるtokenリクエストが失敗した場合
-		{
+		if ($response_from_line_token_server === false) { // curlによるtokenリクエストが失敗した場合
 			$this->logger->error("curl使用: LINEからアクセスtokenを取得するために送信したクエリパラメータ: {$token_request_url}");
 			$this->logger->error("curl使用: アクセスtokenを取得するために叩き,返されたjson: {$response_from_line_token_server}");
 			return $this->twig->render($response, "error.html.twig", 
 				['error_message' => "curl_execが失敗しました"]);
 		}
 
+		// レスポンスをjson形式に変換
+		$response_from_line_token_server_assoc = json_decode($response_from_line_token_server, true);
+		if ($response_from_line_token_server_assoc === null) // もしjson_decodeが失敗した場合
+		{
+			$this->logger->error("LINEからのアクセスtokenを含むレスポンスのjson_decode()に失敗しました");
+			$this->logger->error("curl使用: LINEからアクセスtokenを取得するために送信したクエリパラメータ: {$token_request_url}");
+			$this->logger->error("curl使用: アクセスtokenを取得するために叩き,返されたjson: {$response_from_line_token_server}");
+			return $this->twig->render($response, "error.html.twig", 
+				['error_message' => "LINEログインに失敗しました"]);
+		}
+		// LINEへアクセスtoken取得のために投げたリクエストに対するレスポンスをログに出力
+		// しつつ、アクセストークンなどを取り出す
+		foreach ($response_from_line_token_server_assoc as $key => $value) {
+			$this->logger->info("{$key}:{$value}\n");
 
+		}
 		
 		// ヘッダー情報を設定
 		return $response->withHeader('Location', '/')->withStatus(200);
