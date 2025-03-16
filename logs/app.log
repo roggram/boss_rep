@@ -146,3 +146,4 @@
 [2024-10-27T00:09:05.334036+00:00] slim-app.INFO: Deleted messages for trigger_id: 27 [] {"uid":"60b67d4"}
 [2025-02-24T02:58:07.555606+00:00] slim-app.INFO: LINEログインコールバック [] {"uid":"37a0536"}
 [2025-02-24T03:02:29.576807+00:00] slim-app.INFO: LINEログインコールバック [] {"uid":"b22bb76"}
+[2025-03-08T04:42:54.703765+00:00] slim-app.INFO: LINEログインAPIへ送ったクエリパラメータのログhttps://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=2006987182&redirect_uri=http%3A%2F%2F127.0.0.1%3A8080%2Fline_login%2Fcallback&state=a75affffb4fb6240f7fbe9517e9d4aa109827b7a01209762685a8d884e14b38c&scope=profile+openid&nonce=75c25e1dce4357f3d359af63f915b90ecd36f25248beceac5033e2ff18724ef1 [] {"uid":"7a641e4"}
